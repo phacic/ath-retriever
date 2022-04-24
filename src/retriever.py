@@ -63,14 +63,13 @@ def most_volatile_stock():
 
     logger.info("compting percentage points from yesterday...")
     for q in quotes:
-        quote = q['quote']
-        current_price = quote['c']
-        prev_price = quote['pc']
-        points = (abs(current_price - prev_price) / prev_price) * 100
-        percentage_points[q['symbol']] = points
+        quote = q["quote"]
+
+        # percentage change is already included in the quote
+        percentage_points[q["symbol"]] = abs(float((quote["dp"])))
 
     mv_symbol = max(percentage_points, key=percentage_points.get)
-    mv_quote = list(filter(lambda q: q['symbol'] == mv_symbol, quotes))[0]['quote']
+    mv_quote = list(filter(lambda q: q["symbol"] == mv_symbol, quotes))[0]["quote"]
 
     _data = {
         "stock_symbol": mv_symbol,
@@ -79,8 +78,8 @@ def most_volatile_stock():
         "last_close_price": mv_quote["pc"],
     }
 
-    csv_file_name = 'most_volatile_stock.csv'
-    with open(csv_file_name, 'w') as csv_file:
+    csv_file_name = "most_volatile_stock.csv"
+    with open(csv_file_name, "w") as csv_file:
         header = list(_data.keys())
         writer = csv.DictWriter(csv_file, fieldnames=header)
         writer.writeheader()
