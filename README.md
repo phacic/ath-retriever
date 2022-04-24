@@ -8,10 +8,10 @@ To run the script, run
 
 - `pipenv shell`
   
-- `python -m src.retriever` 
+- `python -m src.retriever`
 
+The csv data should be outputted to `most_volatile_stock.csv`
 
 ## Part 2
 
-The SQL snippet is in `src/part_two.sql`
-  
+The SQL snippets is located in `src/part_two.sql`
